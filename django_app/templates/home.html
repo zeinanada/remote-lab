@@ -1,0 +1,95 @@
+
+<!-- templates/home.html -->
+
+{% extends 'base.html' %}
+     
+{% block title %}Home{% endblock %}
+     
+
+{% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script >
+	function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+	}
+
+	window.onload = function () {
+    	var oneHour = 60 * 60,
+    	    display = document.querySelector('#time');
+    	startTimer(oneHour, display);
+	};
+    
+    var id = 0;
+    $(document).ready(function(){
+    $("#switchesID").hide()
+    
+    $("button").click(function() {    
+    var element = $('#test');
+    var toggle_button = '<div id="switchdiv">\
+    <input type="checkbox" id="switch' + id + '" name="switch' + id + '" class="switch" visible="false"/>\
+    <label for="switch' + id + '">switch </label>\
+    </div>';
+    element.append(toggle_button);
+    id++;
+    document.getElementById("switchesID").value=id;
+    });
+    });  
+</script>
+
+<h2>Welcome!</h2>
+{% if user.is_authenticated %}
+Hi {{ user.username }}!
+<br>
+
+<p id="time"></p>
+<hr>
+<br><br>
+<a href="{% url 'upload' %}" class="btn btn-primary">Upload</a> 
+<a href="{% url 'camera' %}" class="btn btn-primary">Camera</a> 
+<a href="{% url 'motion_camera' %}" class="btn btn-primary">Camera Motion</a>
+<a href="{% url 'Register' %}" class="btn btn-primary"> Register time slice</a>
+
+<br><br>
+
+<form action="{% url 'home' %}" method="post" >
+{% csrf_token %}
+
+<div id='test'>
+    <button type="button">
+        Add switch
+    </button>
+</div>
+<div id="switchdiv">
+<input type="checkbox" id="switchx" name="switchx" class="switch" visible="false"/>
+<label for="switchx">switch </label>
+</div>
+
+<input id="switchesID" name="switchesID" value="0" readonly>
+<input class="btn" type="submit" value="submit">           
+</form>
+
+<br><br>
+<a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+<a href="{% url 'signup' %}" class="btn btn-danger">signup</a>
+{% endif %}
+{% endblock %}
+
+
+

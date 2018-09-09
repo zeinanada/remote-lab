@@ -1,0 +1,15 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Motion streaming{% endblock %}
+
+{%block content%}
+ <h3>Motion stream</h3>
+ <img src= "http://localhost:8081/?action=stream" width="800" height="460"/>
+
+<iframe src="http://localhost:8088" width="800" height="460"></iframe> 
+<br><br>
+ <p><a href="{% url 'home' %}">Return to home</a></p>
+{% endblock%}
+

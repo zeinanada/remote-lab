@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {%for file in files%}
+
+    <a href="/media/{{file.Bitstream}}" >{{file.Bitstream}}</a>
+    <a href="/media/{{file.probs}}" >{{file.probs}}</a>
+<br><br>
+    <h3>{{file.Bitstream}}</h3>
+    <h3>{{file.probs}}</h3>
+    <p>{{file.uploaded_at}}</p>
+  {% endfor %}
+  <p>Return to home<a href="{% url 'home' %}">Home</a></p>
+{% endblock %}

@@ -1,0 +1,14 @@
+daemon on
+stream_port 8081
+stream_quality 50
+stream_motion off
+stream_maxrate 5
+stream_localhost on
+stream_limit 0
+setup_mode off
+minimum_frame_time 0
+netcam_keepalive on
+output_pictures off
+snapshot_interval 0
+#rotate 90
+text_right "crc "%Y-%m-%d\n%T
